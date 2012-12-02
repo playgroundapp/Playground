@@ -1,0 +1,39 @@
+Good... now that everything is working, this is how you get started.
+
+
+Also, I found this site 100% helpful: http://gitref.org/remotes/
+
+
+
+
+- PULL the MAIN REPOSITORY and PUT IT ON YOUR COMPUUTER
+git clone https://github.com/playgroundapp/Playground.git
+
+- If you are adding a NEW FILE:
+git add FILENAME
+
+- To PREPARE this file for UPDATEING the MAIN REPOSITORY:
+git commit FILENAME -m "TYPE A COMMENT HERE"
+
+- To actually UPDATE the MAIN REPOSITORY:
+git push https://github.com/playgroundapp/Playground.git
+
+
+
+- If there are errors, you first have to UPDATE YOUR REPOSITORY TO MATCH THE MAIN REPOSITORY:
+(I think this is correct ....)
+NOTE: I tihnk you can replace the entire URL (https://github.com/playgroundapp/Playground.git) with just origin
+git fetch https://github.com/playgroundapp/Playground.git
+git merge https://github.com/playgroundapp/Playground.git/master
+
+- Equivalently, you could use:
+git pull https://github.com/playgroundapp/Playground.git/master
+
+
+
+
+- Check out all the commits that were made to a file:
+git log FILENAME
+
+- See line by line who made changes to a file:
+git blame FILENAME
