@@ -37,3 +37,6 @@ git log FILENAME
 
 - See line by line who made changes to a file:
 git blame FILENAME
+
+
+This line is here to test the STS GIT.
