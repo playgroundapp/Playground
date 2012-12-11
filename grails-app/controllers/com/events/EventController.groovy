@@ -1,5 +1,8 @@
 package com.events
 
+
+
+import net.fortuna.ical4j.model.Component
 import org.springframework.dao.DataIntegrityViolationException
 
 class EventController {
@@ -99,4 +102,38 @@ class EventController {
             redirect(action: "show", id: id)
         }
     }
+	
+	
+	
+	def EventService;
+	def populateDB() {
+		net.fortuna.ical4j.model.Calendar calendar = EventService.buildCalendar("en.usa#holiday@group.v.calendar.google.com");
+		for (Iterator i = calendar.getComponents().iterator(); i.hasNext();) {
+			Component component = (Component) i.next();
+			// Only create an event item if the current component is of VEVENT and NOT VTIMEZONE
+			if (component.getName().equals("VEVENT")) {
+//				System.out.println("Component [" + component.getName() + "]");
+				String name = EventService.getName(component);
+				String summary = EventService.getName(component);
+				Date startDate = EventService.getStartTime(component);
+				Date endDate = EventService.getStartTime(component);
+				println(name);
+				def eventInstance = new Event(
+					name: name,
+					description: summary,
+					startDate: startDate,
+					endDate: endDate
+				);
+				if (!eventInstance.save(flush: true)) {
+					render(view: "create", model: [eventInstance: eventInstance])
+					return
+				}
+			}
+
+		}
+		redirect(action: "list");
+//		EventService.getEvents("en.usa#holiday@group.v.calendar.google.com");
+		
+	}
+	
 }

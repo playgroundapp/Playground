@@ -14,7 +14,7 @@ class Event {
 	static transients = ['eventType']
 
     static constraints = {
-		name blank:false, nullable: false
+		name blank:false, nullable: false;
 		description blank:false, nullable: false 
 		type inList: EventType.values()*.id
     }
