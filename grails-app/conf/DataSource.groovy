@@ -14,7 +14,7 @@ environments {
     development {
         dataSource {
             dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:mysql://98.110.8.62/PlaygroundApp"
+            url = "jdbc:mysql://tamk.dyndns.org/PlaygroundApp"
         }
     }
     test {

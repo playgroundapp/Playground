@@ -2,6 +2,7 @@ package com.events
 
 
 
+import java.text.SimpleDateFormat
 import net.fortuna.ical4j.model.Component
 import org.springframework.dao.DataIntegrityViolationException
 
@@ -19,9 +20,18 @@ class EventController {
     }
 
     def create() {
+		//Need to use this to pass the date through the URL and have it recognized (also use the same format)
+		params.endDate = new SimpleDateFormat("yyyyMMdd hhmm").parse(params.endDate)
+		params.startDate = new SimpleDateFormat("yyyyMMdd hhmm").parse(params.startDate)
+		System.out.println(params);
         [eventInstance: new Event(params)]
     }
 
+	def createAndSave() {
+		create()
+		save()
+	}
+	
     def save() {
         def eventInstance = new Event(params)
         if (!eventInstance.save(flush: true)) {
@@ -51,7 +61,6 @@ class EventController {
             redirect(action: "list")
             return
         }
-
         [eventInstance: eventInstance]
     }
 
@@ -104,8 +113,10 @@ class EventController {
     }
 	
 	
-	
+	//Need to define the service before we can use its methods
 	def EventService;
+	
+	//Populates the DB using test data.
 	def populateDB() {
 		net.fortuna.ical4j.model.Calendar calendar = EventService.buildCalendar("en.usa#holiday@group.v.calendar.google.com");
 		for (Iterator i = calendar.getComponents().iterator(); i.hasNext();) {
